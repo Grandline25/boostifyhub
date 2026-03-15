@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <meta name="author" content="DNCODER">
+    <!--! The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags !-->
+    <!--! BEGIN: Apps Title-->
+    <title> Login</title>
+    <!--! END:  Apps Title-->
+    <!--! BEGIN: Favicon-->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <!--! END: Favicon-->
+    <!--! BEGIN: Bootstrap CSS-->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <!--! END: Bootstrap CSS-->
+    <!--! BEGIN: Vendors CSS-->
+    <link rel="stylesheet" type="text/css" href="assets/vendors/css/vendors.min.css">
+    <!--! END: Vendors CSS-->
+    <!--! BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="assets/css/theme.min.css">
+    
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- iziToast CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+    <!-- iziToast JS -->
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+
+    
+</head>
+
+<body>
+    <!--! ================================================================ !-->
+    <!--! [Start] Main Content !-->
+    <!--! ================================================================ !-->
+    <main class="auth-creative-wrapper">
+        <div class="auth-creative-inner">
+            <div class="creative-card-wrapper">
+                <div class="card my-4 overflow-hidden" style="z-index: 1">
+                    <div class="row flex-1 g-0">
+                        <div class="col-lg-6 h-100 my-auto order-1 order-lg-0">
+                            <div class="wd-50 bg-white p-2 rounded-circle shadow-lg position-absolute translate-middle top-50 start-50 d-none d-lg-block">
+                                <img src="assets/images/logo-abbr.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="creative-card-body card-body p-sm-5">
+                                <h2 class="fs-20 fw-bolder mb-4">Login</h2>
+                                <h4 class="fs-13 fw-bold mb-2">Login to your account</h4>
+                                <p class="fs-12 fw-medium text-muted">Thank you for getting back to <strong>Boostify Hub</strong>.</p>
+                                
+                                <form id="loginForm" class="w-100 mt-4 pt-2">
+                                    <div class="mb-4">
+                                        <input type="text" id="email" name="email" class="form-control" placeholder="Email or Username" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="rememberMe" name="rememberMe">
+                                                <label class="custom-control-label c-pointer" for="rememberMe">Remember Me</label>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="forgot-password" class="fs-11 text-primary">Forgot password?</a>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5">
+                                        <button type="submit" id="loginButton" class="btn btn-lg btn-primary w-100">Login</button>
+                                    </div>
+                                </form>
+
+                                
+                                <!-- Loading indicator (optional) -->
+                                <div id="loader" style="display: none; text-align: center; margin-top: 10px;">
+                                    <img src="loading.gif" alt="Loading..." width="120px">
+                                </div>
+
+                                
+                                <div class="w-100 mt-5 text-center mx-auto">
+                                    <div class="mb-4 border-bottom position-relative"><span class="small py-1 px-3 text-uppercase text-muted bg-white position-absolute translate-middle">or</span></div>
+                                    <div class="d-flex align-items-center justify-content-center gap-2">
+                                        <a href="javascript:void(0);" class="btn btn-light-brand flex-fill" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Login with Facebook">
+                                            <i class="feather-facebook"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" class="btn btn-light-brand flex-fill" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Login with Twitter">
+                                            <i class="feather-twitter"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" class="btn btn-light-brand flex-fill" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Login with Github">
+                                            <i class="feather-github text"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="mt-5 text-muted">
+                                    <span> Don't have an account?</span>
+                                    <a href="register" class="fw-bold">Create an Account</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 bg-primary order-0 order-lg-1">
+                            <div class="h-100 d-flex align-items-center justify-content-center">
+                                <img src="U45qBJmWVHU.webp" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+   
+<script>
+$(document).ready(function () {
+    $('#loginForm').on('submit', function (e) {
+        e.preventDefault(); // Prevent the default form submission
+        
+        // Show loader
+        $('#loader').show();
+        
+        // Prepare form data
+        var formData = $(this).serialize();
+
+        // Submit form data via AJAX
+        $.ajax({
+            url: 'processor.php?login', // PHP script to process login
+            type: 'POST',
+            data: formData,
+            dataType: 'json', // Ensure that we expect JSON response
+            success: function (response) {
+                // Hide loader
+                $('#loader').hide();
+                
+                // Check if the response has status success
+                if (response.status === 'success') {
+                    iziToast.success({
+                        title: 'Success',
+                        message: response.message,
+                        position: 'topRight'
+                    });
+                    // Redirect after successful login (optional)
+                    window.location.href = 'dashboard';
+                } else {
+                    iziToast.error({
+                        title: 'Error',
+                        message: response.message,
+                        position: 'topRight'
+                    });
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // Hide loader
+                $('#loader').hide();
+                
+                // Display error notification
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Login failed. Please try again.',
+                    position: 'topRight'
+                });
+
+                // Optional: log the error to the console
+                console.log('AJAX Error: ' + textStatus + ': ' + errorThrown);
+            }
+        });
+    });
+});
+</script>
+
+
+   
+   <div class="theme-customizer">
+        <div class="customizer-handle">
+            <a href="javascript:void(0);" class="cutomizer-open-trigger bg-primary">
+                <i class="feather-settings"></i>
+            </a>
+        </div>
+        <div class="customizer-sidebar-wrapper">
+            <div class="customizer-sidebar-header px-4 ht-80 border-bottom d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Theme Settings</h5>
+                <a href="javascript:void(0);" class="cutomizer-close-trigger d-flex">
+                    <i class="feather-x"></i>
+                </a>
+            </div>
+            <div class="customizer-sidebar-body position-relative p-4" data-scrollbar-target="#psScrollbarInit">
+                <!--! BEGIN: [Skins] !-->
+                <div class="position-relative px-3 pb-3 pt-4 mt-3 mb-5 border border-gray-2 theme-options-set">
+                    <label class="py-1 px-2 fs-8 fw-bold text-uppercase text-muted text-spacing-2 bg-white border border-gray-2 position-absolute rounded-2 options-label" style="top: -12px">Skins</label>
+                    <div class="row g-2 theme-options-items app-skin" id="appSkinList">
+                        <div class="col-6 text-center position-relative single-option light-button active">
+                            <input type="radio" class="btn-check" id="app-skin-light" name="app-skin" value="1" data-app-skin="app-skin-light">
+                            <label class="py-2 fs-9 fw-bold text-dark text-uppercase text-spacing-1 border border-gray-2 w-100 h-100 c-pointer position-relative options-label" for="app-skin-light">Light</label>
+                        </div>
+                        <div class="col-6 text-center position-relative single-option dark-button">
+                            <input type="radio" class="btn-check" id="app-skin-dark" name="app-skin" value="2" data-app-skin="app-skin-dark">
+                            <label class="py-2 fs-9 fw-bold text-dark text-uppercase text-spacing-1 border border-gray-2 w-100 h-100 c-pointer position-relative options-label" for="app-skin-dark">Dark</label>
+                        </div>
+                    </div>
+                </div>
+                <!--! END: [Skins] !-->
+                
+            </div>
+        </div>
+    </div>
+    <!--! ================================================================ !-->
+    <!--! [End] Theme Customizer !-->
+    <!--! ================================================================ !-->
+    <!--! ================================================================ !-->
+    <!--! Footer Script !-->
+    <!--! ================================================================ !-->
+    <!--! BEGIN: Vendors JS !-->
+    <script src="assets/vendors/js/vendors.min.js"></script>
+    <!-- vendors.min.js {always must need to be top} -->
+    <script src="assets/vendors/js/lslstrength.min.js"></script>
+    <!--! END: Vendors JS !-->
+    <!--! BEGIN: Apps Init  !-->
+    <script src="assets/js/common-init.min.js"></script>
+    <!--! END: Apps Init !-->
+    <!--! BEGIN: Theme Customizer  !-->
+    <script src="assets/js/theme-customizer-init.min.js"></script>
+    <!--! END: Theme Customizer !-->
+</body>
+
+</html>

@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <meta name="author" content="DNCODER">
+    <!--! The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags !-->
+    <!--! BEGIN: Apps Title-->
+    <title>Duralux || Register</title>
+    <!--! END:  Apps Title-->
+    <!--! BEGIN: Favicon-->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <!--! END: Favicon-->
+    <!--! BEGIN: Bootstrap CSS-->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <!--! END: Bootstrap CSS-->
+    <!--! BEGIN: Vendors CSS-->
+    <link rel="stylesheet" type="text/css" href="assets/vendors/css/vendors.min.css">
+    <!--! END: Vendors CSS-->
+    <!--! BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="assets/css/theme.min.css">
+    
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- iziToast CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+    <!-- iziToast JS -->
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+
+    
+</head>
+
+<body>
+    <!--! ================================================================ !-->
+    <!--! [Start] Main Content !-->
+    <!--! ================================================================ !-->
+    <main class="auth-creative-wrapper">
+        <div class="auth-creative-inner">
+            <div class="creative-card-wrapper">
+                <div class="card my-4 overflow-hidden" style="z-index: 1">
+                    <div class="row flex-1 g-0">
+                        <div class="col-lg-6 h-100 my-auto">
+                            <div class="wd-50 bg-white p-2 rounded-circle shadow-lg position-absolute translate-middle top-50 start-50">
+                                <img src="assets/images/logo-abbr.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="creative-card-body card-body p-sm-5">
+                                <h2 class="fs-20 fw-bolder mb-4">Register</h2>
+                                <h4 class="fs-13 fw-bold mb-2">Manage all your Boostify Hub</h4>
+                                <p class="fs-12 fw-medium text-muted">Let's get you all setup, so you can verify your personal account and begin boost up your profile.</p>
+                                <form id="registerForm" class="w-100 mt-4 pt-2">
+                                    <div class="mb-4">
+                                        <input type="text" name="fullname" class="form-control" placeholder="Full Name" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <input type="email" name="email" class="form-control" placeholder="Email" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <input type="text" name="username" class="form-control" placeholder="Username" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <input type="tel" name="phone" class="form-control" placeholder="Phone Number" required>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <select name="referral_source" class="form-control" required>
+                                            <option value="" disabled selected>How did you hear about us?</option>
+                                            <option value="Google">Google</option>
+                                            <option value="Facebook">Facebook</option>
+                                            <option value="Instagram">Instagram</option>
+                                            <option value="Twitter">Twitter</option>
+                                            <option value="Tiktok">Tiktok</option>
+                                            <option value="Friend/Family">Friend or Family</option>
+                                            <option value="Advertisement">Advertisement</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-4 generate-pass">
+                                        <div class="input-group field">
+                                            <input type="password" class="form-control password" name="password" placeholder="Password Confirm" required>
+                                            <div class="input-group-text c-pointer gen-pass" data-bs-toggle="tooltip" title="Generate Password"><i class="feather-hash"></i></div>
+                                            <div class="input-group-text border-start bg-gray-2 c-pointer show-pass" data-bs-toggle="tooltip" title="Show/Hide Password"><i></i></div>
+                                        </div>
+                                        <div class="progress-bar mt-2">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5">
+                                        <button type="submit" name="register" class="btn btn-lg btn-primary w-100">Create Account</button>
+                                    </div>
+                                    <!-- Loader -->
+                                    <div id="loader" style="display: none; text-align: center; margin-top: 10px;">
+                                        <img src="loading.gif" alt="Loading..." width="120px">
+                                    </div>
+                                </form>
+
+                                <div class="mt-5 text-muted">
+                                    <span>Already have an account?</span>
+                                    <a href="login" class="fw-bold">Login</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 bg-primary">
+                            <div class="h-100 d-flex align-items-center justify-content-center">
+                                <img src="assets/images/auth/auth-user.png" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    
+   <script>
+        $(document).ready(function () {
+            $('#registerForm').on('submit', function (e) {
+                e.preventDefault(); // Prevent the default form submission
+        
+                // Show loader
+                $('#loader').show();
+        
+                // Prepare form data
+                var formData = $(this).serialize();
+        
+                // Submit form data via AJAX
+                $.ajax({
+                    url: 'processor.php?register', // URL of the PHP registration file
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json', // Expecting JSON response from server
+                    success: function (response) {
+                        // Hide loader
+                        $('#loader').hide();
+        
+                        // Display success or error message based on response status
+                        if (response.status === "success") {
+                            iziToast.success({
+                                title: 'Success',
+                                message: response.message,
+                                position: 'topRight'
+                            });
+                            // Redirect after successful login (optional)
+                            window.location.href = 'login';
+                        } else {
+                            iziToast.error({
+                                title: 'Error',
+                                message: response.message,
+                                position: 'topRight'
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Hide loader
+                        $('#loader').hide();
+        
+                        // Display generic error notification
+                        iziToast.error({
+                            title: 'Success',
+                                message: 'Registeration Successful',
+                                position: 'topRight'
+                        });
+                        console.error("AJAX Error:", xhr.responseText); // Log error details for debugging
+                    }
+                });
+            });
+        });
+
+        </script>
+
+
+
+    <div class="theme-customizer">
+        <div class="customizer-handle">
+            <a href="javascript:void(0);" class="cutomizer-open-trigger bg-primary">
+                <i class="feather-settings"></i>
+            </a>
+        </div>
+        <div class="customizer-sidebar-wrapper">
+            <div class="customizer-sidebar-header px-4 ht-80 border-bottom d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Theme Settings</h5>
+                <a href="javascript:void(0);" class="cutomizer-close-trigger d-flex">
+                    <i class="feather-x"></i>
+                </a>
+            </div>
+            <div class="customizer-sidebar-body position-relative p-4" data-scrollbar-target="#psScrollbarInit">
+                <!--! BEGIN: [Skins] !-->
+                <div class="position-relative px-3 pb-3 pt-4 mt-3 mb-5 border border-gray-2 theme-options-set">
+                    <label class="py-1 px-2 fs-8 fw-bold text-uppercase text-muted text-spacing-2 bg-white border border-gray-2 position-absolute rounded-2 options-label" style="top: -12px">Skins</label>
+                    <div class="row g-2 theme-options-items app-skin" id="appSkinList">
+                        <div class="col-6 text-center position-relative single-option light-button active">
+                            <input type="radio" class="btn-check" id="app-skin-light" name="app-skin" value="1" data-app-skin="app-skin-light">
+                            <label class="py-2 fs-9 fw-bold text-dark text-uppercase text-spacing-1 border border-gray-2 w-100 h-100 c-pointer position-relative options-label" for="app-skin-light">Light</label>
+                        </div>
+                        <div class="col-6 text-center position-relative single-option dark-button">
+                            <input type="radio" class="btn-check" id="app-skin-dark" name="app-skin" value="2" data-app-skin="app-skin-dark">
+                            <label class="py-2 fs-9 fw-bold text-dark text-uppercase text-spacing-1 border border-gray-2 w-100 h-100 c-pointer position-relative options-label" for="app-skin-dark">Dark</label>
+                        </div>
+                    </div>
+                </div>
+                <!--! END: [Skins] !-->
+                
+            </div>
+        </div>
+    </div>
+    <!--! ================================================================ !-->
+    <!--! [End] Theme Customizer !-->
+    <!--! ================================================================ !-->
+    <!--! ================================================================ !-->
+    <!--! Footer Script !-->
+    <!--! ================================================================ !-->
+    <!--! BEGIN: Vendors JS !-->
+    <script src="assets/vendors/js/vendors.min.js"></script>
+    <!-- vendors.min.js {always must need to be top} -->
+    <script src="assets/vendors/js/lslstrength.min.js"></script>
+    <!--! END: Vendors JS !-->
+    <!--! BEGIN: Apps Init  !-->
+    <script src="assets/js/common-init.min.js"></script>
+    <!--! END: Apps Init !-->
+    <!--! BEGIN: Theme Customizer  !-->
+    <script src="assets/js/theme-customizer-init.min.js"></script>
+    <!--! END: Theme Customizer !-->
+</body>
+
+</html>
